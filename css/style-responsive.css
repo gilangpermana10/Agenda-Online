@@ -1,0 +1,159 @@
+@media (min-width: 980px) {
+    /*-----*/
+    .custom-bar-chart {
+        margin-bottom: 40px;
+    }
+
+}
+
+@media (min-width: 768px) and (max-width: 979px) {
+
+
+    .chat-room aside {
+        display: block;
+    }
+
+}
+
+@media (max-width: 768px) {
+
+    .header {
+        position: absolute;
+    }
+
+    #sidebar {
+        height: auto;
+        overflow: hidden;
+        position: absolute;
+        width: 100%;
+        z-index: 1001;
+    }
+
+
+    /* body container */
+    #main-content {
+        margin: 0px!important;
+        position: none !important;
+    }
+
+    #sidebar > ul > li > a > span {
+        line-height: 35px;
+    }
+
+    #sidebar > ul > li {
+        margin: 0 10px 5px 10px;
+    }
+    #sidebar > ul > li > a {
+        height:35px;
+        line-height:35px;
+        padding: 0 10px;
+        text-align: left;
+        margin: 10  
+    }
+
+    .mail-info, .mail-info:hover {
+        display: none !important;
+    }
+    #sidebar ul > li > a .arrow, #sidebar > ul > li > a .arrow.open {
+        margin-right: 10px;
+        margin-top: 15px;
+    }
+
+    #sidebar ul > li.active > a .arrow, #sidebar ul > li > a:hover .arrow, #sidebar ul > li > a:focus .arrow,
+    #sidebar > ul > li.active > a .arrow.open, #sidebar > ul > li > a:hover .arrow.open, #sidebar > ul > li > a:focus .arrow.open{
+        margin-top: 15px;
+    }
+
+    #sidebar > ul > li > a, #sidebar > ul > li > ul.sub > li {
+        width: 100%;
+    }
+    #sidebar > ul > li > ul.sub > li > a {
+        background: transparent !important ;
+    }
+    #sidebar > ul > li > ul.sub > li > a:hover {
+        background-color: #4ECDC4;
+    }
+
+
+    /* sidebar */
+    #sidebar {
+        margin: 0px !important;
+    }
+
+    /* sidebar collabler */
+    #sidebar .btn-navbar.collapsed .arrow {
+        display: none;
+    }
+
+    #sidebar .btn-navbar .arrow {
+        position: absolute;
+        right: 35px;
+        width: 0;
+        height: 0;
+        top:48px;
+        border-bottom: 15px solid #282e36;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+    }
+
+    .mail-box aside {
+        display: block;
+    }
+    .dcjq-icon {
+        top: 10px;
+    }
+    ul.sidebar-menu li ul.sub li a {
+        padding: 0;
+    }
+
+    /*---*/
+
+    .img-responsive {
+        width: 100%;
+    }
+
+}
+
+
+
+@media (max-width: 480px) {
+
+    .notify-row, .search, .dont-show , .inbox-head .sr-input, .inbox-head .sr-btn{
+        display: none;
+    }
+
+    .mail-box aside {
+        display: block;
+    }
+
+    #top_menu .nav > li, ul.top-menu > li {
+        float: right;
+    }
+                .navbar-inverse .navbar-toggle:hover, .navbar-inverse .navbar-toggle:focus {
+                    background-color: #ccc;
+                    border-color:#ccc ;
+                }
+
+    .chat-room aside {
+        display: block;
+    }
+}
+
+@media (max-width:320px) {
+
+                .notify-row, .search, .dont-show, .inbox-head .sr-input, .inbox-head .sr-btn {
+                    display: none;
+                } 
+
+    .mail-box aside {
+        display: block ;
+    }
+
+    #top_menu .nav > li, ul.top-menu > li {
+        float: right;
+    }
+}
+
+
+
+
