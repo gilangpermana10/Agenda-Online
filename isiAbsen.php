@@ -29,9 +29,12 @@ if( isi($_POST) > 0 ) {
 
 }
 
+$tangg    =date("Y-m-d");
+
 $kd = $_SESSION["kd"];
 
-$data=query("SELECT * FROM tb_siswa WHERE id_kelas = '$kd' ");
+$data=query("SELECT * FROM tb_siswa WHERE id_kelas='$kd'");
+
 
 $nm_kelas = $_SESSION["nm_kelas"];
 $gambar = $_SESSION["gambar"];
@@ -141,7 +144,7 @@ $gambar = $_SESSION["gambar"];
     <!-- menu utama -->
     <section id="main-content">
     <section class="wrapper">
-    <form method="post" action="">
+    
     <div class="container">
     <div class="content-wrapper turun">
     <table class="table table-hover">
@@ -155,20 +158,37 @@ $gambar = $_SESSION["gambar"];
             </thead>
 
             <tbody>
+            <form method="post" action="">
             <?php $i = 1; ?>
 	          <?php foreach( $data as $row ) : ?>
+              
+                
               <tr>
-
                 <td><?= $i; ?></td>
-                <td ><?= $row["nm_siswa"]; ?></td>
+                <td>
+                <input type="hidden" value="<?= $row["nm_siswa"];?>" name="nama">
+                <?= $row["nm_siswa"]; ?>
+                </td>
+                
+                <input type="hidden" value="<?= $data["nm_klas"];?>" name="nm_kelas" >
+                
+                
+                <input type="hidden" value="<?= $data["id_kelas"];?>" name="id_kelas" >
+                
+                
+                <input type="hidden" value="<?= $tangg ;?>" name="tanggal" >
+                
+                
+                <input type="hidden" value="<?= $row["nis"];?>" name="nis" >
+                
                 <td>
                 <div class="form-group">
 
                                 <select class="form-control" id="ket" name="ket">
                                     <option>-</option>
-                                    <option>Sakit</option>
-                                    <option>Izin</option>
-                                    <option>Alfa</option>
+                                    <option value="sakit">Sakit</option>
+                                    <option value="izin">Izin</option>
+                                    <option value="alfa">Alfa</option>
 
                                 </select>
                         </div>
@@ -178,6 +198,7 @@ $gambar = $_SESSION["gambar"];
               <?php $i++; ?>
 	          <?php endforeach; ?>
             </tbody>
+            
           </table>
         </div>
 
@@ -190,12 +211,11 @@ $gambar = $_SESSION["gambar"];
             </div>
         </div>
     </div>
+    </form>
 
     <!-- akhir menu utama -->
 </div>
 </div>
-
-</form>
     <!-- akhir menu utama -->
 </section>
 </section>
