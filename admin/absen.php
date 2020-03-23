@@ -6,6 +6,17 @@ if( !isset($_SESSION["masukadmin"])){
   exit;
 
 }
+include 'cari/cari_absen.php';
+
+          
+$data = query("SELECT * FROM tb_kelas");
+
+$bulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+
+if(isset($_POST["cari"])){
+  $data = cari($_POST["keyword"]);
+}
+
 
 ?>
           <!DOCTYPE html>
@@ -18,9 +29,11 @@ if( !isset($_SESSION["masukadmin"])){
             <meta name="main" content="menu utama">
             <meta name="keyword" content="Agenda , absen , EFORM ,Siswa,guru">
             <title>EFORM</title>
+            <script src="../lib/jquery/jquery.min.js"></script>
+            <script src="js/absen.js"></script>
 
             <!-- Bootstrap core CSS -->
-            <link href="../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+            <link href="../bootstrap.css" rel="stylesheet">
 
             <!--external css-->
             <link href="../lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
@@ -161,13 +174,13 @@ if( !isset($_SESSION["masukadmin"])){
         <div class="control-group">
         
                 <div class="form-group">
-                <form method="get">
+                <form method="post" action="">
                   <label>TANGGAL </label>
                   <input class="form btn buleud" type="date" name="cari">
                   <button class="form btn btn-info buleud" type="submit"><i class="fa fa-search"></i> CARI </button>
                   <label>KODE KELAS </label>
-                  <input class="form btn buleud" type="text" name="cari">
-                  <button class="form btn btn-info buleud" type="submit"><i class="fa fa-search"></i> CARI </button>
+                  <input class="form btn buleud" type="text" id="keyword" name="keyword">
+                  <button class="form btn btn-info buleud" type="submit" id="cari" name="cari"><i class="fa fa-search"></i> CARI </button>
                   <button class="btn btn-info buleud"><i class="fa fa-print"></i> PRINT</button>
 
                 </form>
@@ -179,53 +192,47 @@ if( !isset($_SESSION["masukadmin"])){
 <div class="row">
 <div class="col-sm-12">
 <h2 class="dispay-2  text-left">Absen</h2>
+<div id="containertab">
 <table class="table  table-advance table-hover">
     <hr>
     <thead>
+
       <tr>
-        <th>NO </th>
-        <th>Tanggal</th>
-        <th>Kode kelas</th>
+        <th>No</th>
+        <th>Bulan</th>
+        <th>Kelas</th>
         <th></th>
       </tr>
+    
     </thead>
     <tbody class="text-left">
-      
+
+    <?php $i = 1 ;?>
+    <?php foreach($data as $rows ) : ?>
+    <?php foreach($bulan as $row ) : ?>
     <tr>
-        <td>1</td>
-        <td>12345</td>
-        <td>54321</td>
+        
+        <td><?= $i++; ?></td>
+        <td><a data-toggle="dropdown" data-target="#" href="#">
+          Cari</a>
+          <ul class="dropdown-menu">
+          <li><?= $row; ?></li>
+        </ul>
+        
+          </td>
+    
+        <td><?= $rows["nm_kelas"]; ?></td>
+        
         <td><a href="lihat_absen.php"><button class="btn btn-primary buleud"><i class="fa fa-eye"></i> LIHAT</button></a>
         
       </tr>
+      <?php endforeach; ?>
+      <?php endforeach;?>
       
-      
-    <tr>
-        <td>1</td>
-        <td>12345</td>
-        <td>54321</td>
-         <td><a href="lihat_absen.php"><button class="btn btn-primary buleud"><i class="fa fa-eye"></i> LIHAT</button></a>
-        
-      </tr>
-      
-    <tr>
-        <td>1</td>
-        <td>12345</td>
-        <td>54321</td>
-         <td><a href="lihat_absen.php"><button class="btn btn-primary buleud"><i class="fa fa-eye"></i> LIHAT</button></a>
-        
-      </tr>
-      
-    <tr>
-        <td>1</td>
-        <td>12345</td>
-        <td>54321</td>
-         <td><a href="lihat_absen.php"><button class="btn btn-primary buleud"><i class="fa fa-eye"></i> LIHAT</button></a>
-        
-      </tr>
 
     </tbody>
   </table>
+  </div>
 
   <hr>
 
@@ -244,7 +251,8 @@ if( !isset($_SESSION["masukadmin"])){
         <!-- js placed at the end of the document so the pages load faster -->
         <script src="../lib/jquery/jquery.min.js"></script>
 
-        <script src="../lib/bootstrap/js/bootstrap.min.js"></script>
+        <!-- <script src="../lib/bootstrap/js/bootstrap.min.js"></script> -->
+        <script src="../bootstrap.js"></script>
         <script class="include" type="text/javascript" src="../lib/jquery.dcjqaccordion.2.7.js"></script>
         <script src="../lib/jquery.scrollTo.min.js"></script>
         <script src="../lib/jquery.nicescroll.js" type="text/javascript"></script>
