@@ -6,23 +6,15 @@ if( !isset($_SESSION["masukkepala"])){
   exit;
 
 }
-require '../koneksi.php';
+include 'cari/cari_absen.php';
+         
+$data = query("SELECT * FROM tb_kelas");
 
-$tangg    =date("Y-m-d");
 
-
-if(isset($_GET['tanggal'])){
-  $tgl = $_GET['tanggal'];
-  $data=query("SELECT * FROM tb_absen WHERE tanggal='$tgl'");
-
-}else{
-  $data=query("SELECT * FROM tb_absen where tanggal='$tangg'");
-  $error=true;
+if(isset($_POST["cari"])){
+  $data = cari($_POST["keyword"]);
 }
 
-
-$nm_kelas = $_SESSION["nm_kelas"];
-$gambar = $_SESSION["gambar"];
 ?>
 
 <!DOCTYPE html>
@@ -35,6 +27,8 @@ $gambar = $_SESSION["gambar"];
             <meta name="main" content="menu utama">
             <meta name="keyword" content="Agenda , absen , EFORM ,Siswa,guru">
             <title>EFORM</title>
+            <script src="../lib/jquery/jquery.min.js"></script>
+            <script src="js/absen.js"></script>
 
             <!-- Bootstrap core CSS -->
             <link href="../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -84,10 +78,10 @@ $gambar = $_SESSION["gambar"];
                   <!-- sidebar menu start-->
                   
                   <ul class="sidebar-menu" id="nav-accordion">
-                    <p class="centered"><img src="<?= $gambar; ?>" class="img-circle" width="80"></p>
+                    <p class="centered"><img src=" " class="img-circle" width="80"></p>
                     <h5 class="centered">
                     
-                    <?= $nm_kelas;?>
+                    Asep Budiyansah, S.Hum,M.Pd.
       
                     </h5>
                     <li class="mt">
@@ -165,95 +159,78 @@ $gambar = $_SESSION["gambar"];
               </aside>
 
               <!-- menu utama -->
+              
               <section id="main-content">
-              <section class="wrapper turun">
-              <div class="form-group">
-              <form action="get" class="pull-left mail-src-position">
-                  <div class="input-append">
-                  <label>PILIH KELAS</label>
-                    <input class="text" class="form-control " placeholder="Search">
-                    <input class="form" type="submit" value="CARI">
-                  </div>
-                  </form>
-                  <form method="get">
-                    <label>&emsp;PILIH TANGGAL</label>
-                    <input class="form" type="date" name="tanggal">
-                    <button type="submit" > Cari </button>
-                    </form>
-              </div>
-              <table class="table table-bordered table-striped">
-              <thead>
-                    <tr>
-	                  	<th>No.</th>
-	                  	<th>id absen</th>
-	                  	<th>NIS</th>
-	                  	<th>Nama Siswa</th>
-                      <th>Nama Kelas</th>
-                    	</tr>
-              </thead>
-              <tbody>
-              <?php $i = 1; ?>
-	            <?php foreach( $data as $row ) : ?>
-              <tr>
+                <section class="wrapper turun text-center">
 
-                <td><?= $i ; ?></td>
-                <td><?= $row["id_absen"]; ?></td>
-                <td><?= $row["nis"]; ?></td>
-                <td><?= $row["nm_siswa"]; ?></td>
-                <td><?= $row["nm_kelas"]; ?></td>
-              </tr>
-              <?php $i++; ?>
-              <?php endforeach; ?>
-            </tbody>
-            </table>
-            
+                <div class="row">
 
-              <div class="row mb">
-                <div class="col-lg-4 main-chart">
-                <div class="col-md">
-
+<div class="col-lg-12 ">
+        <div class="control-group">
+        
                 <div class="form-group">
-                <form action="">
-                
-                <label for="">Jumlah Hadir</label>
-                <input class="form-control" type="text" nama="nm_kelas" placeholder="<?php
-                if(isset($error)) {
-
-                  echo "silahkan pilih tanggal!";
-                  }else{
-                    $jh =$row['jumlah_hadir'];
-                    echo "$jh";  
-                  }?>" readonly>
-                
-
-                <label for="">Jumlah Tidak Hadir</label>
-                <input class="form-control" type="text" nama="nm_kelas" placeholder="<?php
-                if(isset($error)) {
-
-                  echo "silahkan pilih tanggal!";
-                  }else{
-                    $jth =$row['jumlah_tidak_hadir'];
-                    echo "$jth";  
-                  }?>" readonly>
-                
-                
-                <label for="">Sakit</label>
-                <input class="form-control" type="text" nama="nm_kelas" placeholder="" readonly>
-                
-                <label for="">Izin</label>
-                <input class="form-control" type="text" nama="nm_kelas" placeholder="" readonly>
-                
-                <label for="">Alfa</label>
-                <input class="form-control" type="text" nama="nm_kelas" placeholder="" readonly>
-                
+                <form method="post" action="">
+                  
+                  <label>CARI KELAS </label>
+                  <input class="form btn buleud" type="text" id="keyword" name="keyword" autocomplete="off">
+                  <button class="form btn btn-info buleud" type="submit" id="cari" name="cari"><i class="fa fa-search"></i> CARI </button>
 
                 </form>
                 </div>
-                <div>
-                </div>
-              </div>
-              </section> 
-              </section> 
+        </div>
+        </div>
+
+</div>
+<div class="row"> 
+<div class="col-sm-12">
+<h2 class="dispay-2  text-left">Absen</h2>
+<div id="containertab">
+<table class="table table-bordered table-striped table-hover">
+    <hr>
+    <thead>
+
+      <tr>
+        <th>No</th>
+       
+        <th>Kelas</th>
+        <th></th>
+      </tr>
+    
+    </thead>
+    <tbody class="text-left">
+
+    <?php $i = 1 ;?>
+    <?php foreach($data as $rows ) : ?>
+    
+    <tr>
+        
+        <td><?= $i++; ?></td>
+        <td><?= $rows["nm_kelas"]; ?></td>
+        
+        <td class="text-center"><a href="lihat_absen.php?kelas=<?= $rows['id_kelas'];?>"><button class="btn btn-primary buleud" type="submit" name="submit"><i class="fa fa-eye"></i> LIHAT</button></a></td>
+        
+      </tr>
+      
+      <?php endforeach;?>
+
+    </tbody>
+  </table>
+  </div>
+
+  <hr>
+
+</div>
+</div>
+
+
+              </section>
+
+        
+</section>
+      <!-- akhir menu utama -->
+    
+    
+    </section>
               <!-- akhir menu utama -->
     
     

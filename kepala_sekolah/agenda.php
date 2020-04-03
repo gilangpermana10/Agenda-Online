@@ -17,10 +17,7 @@ $data=query("SELECT * FROM tb_agenda WHERE tanggal='$tgl'");
 $data=query("SELECT * FROM tb_agenda where tanggal='$tangg'");
 $error=true;
           }
-
-$nm_kelas = $_SESSION["nm_kelas"];
-$gambar = $_SESSION["gambar"];
-         
+       
 ?>
 
 <!DOCTYPE html>
@@ -82,10 +79,10 @@ $gambar = $_SESSION["gambar"];
                   <!-- sidebar menu start-->
                   
                   <ul class="sidebar-menu" id="nav-accordion">
-                    <p class="centered"><img src="<?= $gambar; ?>" class="img-circle" width="80"></p>
+                    <p class="centered"><img src=" " class="img-circle" width="80"></p>
                     <h5 class="centered">
                     
-                    <?= $nm_kelas;?>
+                    Asep Budiyansah, S.Hum,M.Pd.
       
                     </h5>
                     <li class="mt">
@@ -166,21 +163,24 @@ $gambar = $_SESSION["gambar"];
               <section id="main-content">
               <section class="wrapper turun">
               <div class="form-group">
-                  <form action="get" class="pull-left mail-src-position">
-                  <div class="input-append">
-                  <label>CARI KELAS</label>
-                    <input class="text" class="form-control " placeholder="Search">
-                    <input class="form" type="submit" value="CARI">
-                  </div>
-                  </form>
-                  <form method="get">
-                    <form action="get" class="pull-left mail-src-position">
+              <div class="col-lg-12">
+              <div class="control-group">
+
+                      <div class="form-group">
+                      <form method="post" action="">
+                        <label>Cari user </label>
+                        <input class="form  btn buleud" type="text" id="keyword" name="keyword" autocomplete="off">
+                        <button class="form btn btn-info buleud" type="submit" id="cari" name="cari"><i class="fa fa-search"></i> CARI </button>
+                      
+                 
                     <label>&emsp; PILIH TANGGAL</label>
-                    <input class="form" type="date" name="tanggal">
-                    <button type="submit" > Cari </button>
+                    <input type="date" name="tanggal" class="form  btn buleud">
+                    <button class="form btn btn-info buleud" type="submit" id="cari" name="cari"><i class="fa fa-search"></i> CARI </button>
                     </form>
+                    </div>
               </div>
-              <table class="table table-bordered table-striped">
+              </div>
+              <table class="table table-bordered table-striped table-hover">
               <thead>
                    <tr>
 	                  	<th>No.</th>

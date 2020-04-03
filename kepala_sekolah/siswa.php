@@ -6,14 +6,15 @@
 
         }
 
-          include("../koneksi.php");
-         
-          $data=query("SELECT *
-          FROM tb_siswa");
+        include 'cari/cari_siswa.php';
 
-          $nm_kelas = $_SESSION["nm_kelas"];
-          $gambar = $_SESSION["gambar"];
-         
+          
+        $data=query("SELECT * FROM tb_siswa");
+
+        if(isset($_POST["cari"])){
+          $data = cari($_POST["keyword"]);
+        }
+
           ?>
 
 <!DOCTYPE html>
@@ -26,6 +27,8 @@
             <meta name="main" content="menu utama">
             <meta name="keyword" content="Agenda , absen , EFORM ,Siswa,guru">
             <title>EFORM</title>
+            <script src="../lib/jquery/jquery.min.js"></script>
+            <script src="js/siswa.js"></script>
 
             <!-- Bootstrap core CSS -->
             <link href="../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -75,10 +78,10 @@
                   <!-- sidebar menu start-->
                   
                   <ul class="sidebar-menu" id="nav-accordion">
-                    <p class="centered"><img src="<?= $gambar; ?>" class="img-circle" width="80"></p>
+                    <p class="centered"><img src=" " class="img-circle" width="80"></p>
                     <h5 class="centered">
                     
-                    <?= $nm_kelas;?>
+                    Asep Budiyansah, S.Hum,M.Pd.
       
                     </h5>
                     <li class="mt">
@@ -159,15 +162,21 @@
               <section id="main-content">
               <section class="wrapper turun">
               <div class="form-group">
-                  <form action="get" class="pull-left mail-src-position">
-                  <div class="input-append">
-                  <label>Cari Siswa</label>
-                    <input class="text" class="form-control " placeholder="Cari">
-                    <input class="form mb" type="submit" value="CARI">
-                  </div>
-                  </form>
+              <div class="col-lg-12 text-center">
+              <div class="control-group">
+
+                      <div class="form-group">
+                      <form method="post" action="">
+                        <label>Cari Siswa </label>
+                        <input class="form  btn buleud" type="text" id="keyword" name="keyword" autocomplete="off">
+                        <button class="form btn btn-info buleud" type="submit" id="cari" name="cari"><i class="fa fa-search"></i> CARI </button>
+                      </form>
+                      </div>
+              </div>
+              </div>
                   <br>
-              <table class="table table-bordered table-striped">
+                  <div id="containertab">
+              <table class="table table-bordered table-striped table-hover">
               <thead>
                     <tr>
 	                  	<th>No.</th>
@@ -199,7 +208,9 @@
               <?php $i++; ?>
               <?php endforeach; ?>
                   </tbody>
+            
               </table>
+              </div>
               </section>  
       <!-- akhir menu utama -->
     
